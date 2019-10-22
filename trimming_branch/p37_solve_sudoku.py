@@ -51,7 +51,7 @@ class Solution(object):
                 if board[i][j] != '.':  # 注意不要把题目给出数字的位置当做坑位
                     continue
                 candidates[(i, j)] = self.possible_candidates(board, i, j)
-        self.candidates = candidates.items()
+        self.candidates = list(candidates.items())
         self.candidates.sort(key=lambda x: len(x[1]))  # 优先解决选项少的坑位
 
     def solveSudoku(self, board):

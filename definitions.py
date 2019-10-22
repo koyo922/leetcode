@@ -74,7 +74,7 @@ class TreeNode(object):
 
     def __str__(self):
         return '({} -> {}, {})'.format(self.val, (self.left.val if self.left else None),
-                                     (self.right.val if self.right else None))
+                                       (self.right.val if self.right else None))
 
     def __repr__(self):
         return self.__str__()

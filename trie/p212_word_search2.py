@@ -37,43 +37,45 @@ Date:    2019/7/15 下午10:50
 
 class Solution(object):
     def findWords(self, board, words):
+        results = set()  # 结果去重
+
         if not board or not board[0] or not words:  # 注意空行
             return []
 
-        self.results = set()  # 结果去重
-
         # 构造Trie
-        self.EOW = '#'
+        EOW = '#'
         root = dict()
         for word in words:
             node = root
             for c in word:
                 node = node.setdefault(c, dict())
-            node[self.EOW] = True
+            node[EOW] = True
 
         # 注意行列数可能不同
-        self.M, self.N = len(board), len(board[0])
+        M, N = len(board), len(board[0])
+
+        # 定义&使用 dfs
+        def dfs(i, j, cur_word, cur_dict):
+            # 传进来的时候 还没改 cur_word, cur_dict
+            c = board[i][j]
+            cur_word += c
+            cur_dict = cur_dict[c]
+
+            if EOW in cur_dict:
+                results.add(cur_word)
+
+            board[i][j] = '@'  # placeholder
+            for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                x, y = i + dx, j + dy
+                if 0 <= x < M and 0 <= y < N:
+                    t = board[x][y]
+                    if t != '@' and t in cur_dict:  # 如果这个方向没有任何前缀，就放弃搜索
+                        dfs(x, y, cur_word, cur_dict)
+            board[i][j] = c
+
         for i, row in enumerate(board):
             for j, c in enumerate(row):
                 if c in root:
-                    self._dfs(board, i, j, '', root)
+                    dfs(i, j, '', root)
 
-        return list(self.results)  # 题目要求返回list
-
-    def _dfs(self, board, i, j, cur_word, cur_dict):
-        # 传进来的时候 还没改 cur_word, cur_dict
-        c = board[i][j]
-        cur_word += c
-        cur_dict = cur_dict[c]
-
-        if self.EOW in cur_dict:
-            self.results.add(cur_word)
-
-        board[i][j] = '@'  # placeholder
-        for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-            x, y = i + dx, j + dy
-            if 0 <= x < self.M and 0 <= y < self.N:
-                t = board[x][y]
-                if t != '@' and t in cur_dict:  # 如果这个方向没有任何前缀，就放弃搜索
-                    self._dfs(board, x, y, cur_word, cur_dict)
-        board[i][j] = c
+        return list(results)  # 题目要求返回list

@@ -66,4 +66,4 @@ class Solution(object):
 
 
 if __name__ == '__main__':
-    print Solution().mySqrt(8)
+    print(Solution().mySqrt(8))

@@ -28,7 +28,7 @@ Date:    2019/7/8 下午10:34
 """
 from __future__ import unicode_literals, print_function
 
-from kinoko.basic_algo.definitions import TreeNode
+from definitions import TreeNode
 
 
 class Solution(object):

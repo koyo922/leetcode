@@ -21,12 +21,15 @@ Date:    2019/7/7 下午9:21
 
 
 class Solution(object):
-    def majorityElement(self, nums):
-        # sol1: brute-force
+    def using_lib(self, nums):
         from collections import Counter
         return Counter(nums).most_common(1)[0][0]
 
-        # sol2: 摩尔投票法,O(n)的时间复杂度
+    def sorted_median(self, nums):
+        nums.sort()
+        return nums[len(nums) // 2]
+
+    def moore_voting(self, nums):
         cnt = 0
         for n in nums:
             if cnt == 0:  # 当前候选跌空，换候选
@@ -36,7 +39,3 @@ class Solution(object):
             else:  # 否则减1
                 cnt -= 1
         return cand  # 真正的众数总能 耗光前面的候选并自己坚持到最后
-
-        # sol3: 排序后取中位数
-        nums.sort()
-        return nums[len(nums) // 2]

@@ -83,4 +83,4 @@ class Solution(object):
 
 
 if __name__ == '__main__':
-    print Solution().maxProfit([3, 3, 5, 0, 0, 3, 1, 4])
+    print(Solution().maxProfit([3, 3, 5, 0, 0, 3, 1, 4]))
