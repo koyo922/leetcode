@@ -80,5 +80,12 @@ class TreeNode(object):
         return self.__str__()
 
 
+class RandomListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+        self.random = None
+
+
 if __name__ == '__main__':
     "[3, 9, 20, null, null, 15, 7]"
